@@ -8,8 +8,6 @@ services:
         image: sebn-employee-testing
         env_file: ./.env
         networks:
-            default_ppz:
-                aliases:
-                    - sebn-employee-testing
+            - employee_testing
 
 version: "3.8"

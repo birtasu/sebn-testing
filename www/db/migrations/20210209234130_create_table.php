@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateFirstTable extends AbstractMigration
+final class CreateTable extends AbstractMigration
 {
     /**
      * Change Method.

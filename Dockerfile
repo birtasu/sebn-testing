@@ -2,13 +2,24 @@ FROM php:7.3-apache
 
 WORKDIR /var/www/html
 
-RUN docker-php-ext-install mysqli
+# system dependecies
+  RUN apt-get update && apt-get install -y \
+     git \
+     libicu-dev \
+     libpq-dev \
+     unzip \
+     zlib1g-dev \
+     libonig-dev \
+     libzip-dev
 
-RUN apt-get update \
-    && apt-get install -y libzip-dev \
-    && apt-get install -y zlib1g-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-install zip
+# PHP dependencies
+  RUN docker-php-ext-install \
+      intl \
+      mbstring \
+      pdo \
+      pdo_mysql \
+      mysqli \
+      zip
 
 COPY ./ ./
 

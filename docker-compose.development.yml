@@ -14,13 +14,12 @@ services:
     volumes:
       - ./www:/var/www/html
     networks:
-      employee_testing:
-        aliases:
-          - sebn-employee-testing
+      - employee_testing
     environment:
       TZ: "Europe/Kiev"
     links:
-      -   db
+      - db:db
+
   db:
     image: mysql:5.7
     ports:
@@ -33,15 +32,12 @@ services:
       MYSQL_ROOT_PASSWORD: ${DEFAULT_DATABASE_PASSWORD}
       TZ: ${DEFAULT_TIME_ZONE}
     volumes:
-    - ./dump:/docker-entrypoint-initdb.d
+      - ./dump:/docker-entrypoint-initdb.d
     networks:
-      employee_testing:
-        aliases:
-          - sebn-employee-testing
+      - employee_testing
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    links:
-      - db:db
     ports:
       - 8001:80
     environment:
@@ -50,8 +46,8 @@ services:
       MYSQL_PASSWORD: ${DEFAULT_DATABASE_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DEFAULT_DATABASE_PASSWORD}
     networks:
-      employee_testing:
-        aliases:
-          - sebn-employee-testing
+      - employee_testing
+    links:
+      - db:db
 
 version: "3.8"
