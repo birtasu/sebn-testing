@@ -5,6 +5,7 @@ networks:
 services:
 
   service:
+    container_name: testing
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -21,6 +22,7 @@ services:
       - db:db
 
   db:
+    container_name: mysql
     image: mysql:5.7
     ports:
       - 3306:3306
@@ -31,12 +33,11 @@ services:
       MYSQL_PASSWORD: ${DEFAULT_DATABASE_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DEFAULT_DATABASE_PASSWORD}
       TZ: ${DEFAULT_TIME_ZONE}
-    volumes:
-      - ./dump:/docker-entrypoint-initdb.d
     networks:
       - employee_testing
 
   phpmyadmin:
+    container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     ports:
       - 8001:80

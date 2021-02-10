@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateTable extends AbstractMigration
+final class CreateTableTestCategory extends AbstractMigration
 {
     /**
      * Change Method.
@@ -16,14 +16,15 @@ final class CreateTable extends AbstractMigration
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change(): void
+    public function up(): void
     {
-      $table = $this->table('first');
-      $table->addColumn('name', 'string', array('limit'=>25))
-            ->addColumn('title', 'string', array('limit'=>250))
-            ->addColumn('text', 'string')
-            ->addColumn('numb', 'integer', array('default'=>10, 'null'=>TRUE))
-            ->addColumn('date', 'timestamp', array('default'=>'CURRENT_TIMESTAMP'))
+      $table = $this->table('test_category');
+      $table->addColumn('name', 'string', array('limit'=>100, 'null'=>TRUE))
             ->create();
+    }
+
+    public function down(): void
+    {
+      $this->dropTable('test_category');
     }
 }

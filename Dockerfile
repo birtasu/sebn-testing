@@ -23,12 +23,4 @@ WORKDIR /var/www/html
 
 COPY ./ ./
 
-RUN chmod -R 775 www/lib/
-RUN chmod -R 775 www/img/
-
-# composer
-RUN curl -sS https://getcomposer.org/installer | php && \
-	  mv composer.phar /usr/local/bin/composer
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
 COPY 000-default.conf /etc/apache2/sites-available/
