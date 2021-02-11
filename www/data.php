@@ -54,22 +54,22 @@ if(isset($result)){
 	$update = $connection->query("UPDATE test_users SET `result` = '".$good." / ".$total_rows."' WHERE id = '$id'");
 	$list = array('res_test_good'=>$good, 'res_test_no_good'=>$no_good, 'res_total'=>$total_rows);
 	echo json_encode($list);
-	
+
 		$check = mysqli_fetch_assoc($connection->query("SELECT `check` FROM test_results WHERE test_id = '$id' LIMIT 1"));
 		if(empty($check['check'])){
 			$today = date("Y-m-d H:i:s");
 			$update = $connection->query("UPDATE test_results SET `check` = '$today' WHERE test_id = '$id'");
 		}
-	
+
 }
 if(isset($EmployeeID)){
-	$data = mysqli_fetch_assoc($connection->query("SELECT Employee, Subdivision, EmployeeID FROM `SEBN-UA`.`Employee` WHERE EmployeeID = '".$EmployeeID."'"));		
+	$data = mysqli_fetch_assoc($connection->query("SELECT Employee, Subdivision, EmployeeID FROM `SEBN-UA`.`Employee` WHERE EmployeeID = '".$EmployeeID."'"));
 	$result .= $data['Employee'];
 	$result_2 .= $data['Subdivision'];
 	$result_3 .= '<img width="100%" height="100%" style="border-radius: 5%;" src="/assets/pictures/employees/'.$data['EmployeeID'].'.jpg"></img>';
-	
+
 	echo json_encode(array("result"=>$result, "result_2"=>$result_2, "result_3"=>(isset($data['EmployeeID']) ? $result_3 : '')));
-	
+
 }
 if(isset($tema)){
     $a = mysqli_fetch_assoc($connection->query("SELECT * FROM test_location WHERE `locID` = '".$tema."' and `value` > '0' LIMIT 1"));
@@ -93,12 +93,12 @@ if(isset($tema)){
     echo $r;
 
 }
-if(isset($category)){	
-	$data = $connection->query("SELECT * FROM `test_questions` WHERE `category` = '".$category."'");		
+if(isset($category)){
+	$data = $connection->query("SELECT * FROM `test_questions` WHERE `category` = '".$category."'");
 	$i = 1;
 		$html .='<div class="ui styled fluid accordion">';
 	while($row = mysqli_fetch_assoc($data)){
-		$html .='		
+		$html .='
 		  <div class="title"><i class="dropdown icon"></i>'.$row['pytannya'].'</div>
 		  <div class="content">
 			<p class="transition hidden"><img src="./img/'.$row['id'].'.png" style="display: '.($row['img'] == 1 || $row['img'] == 2 ? '' : 'none').';"/></p>
@@ -110,9 +110,9 @@ if(isset($category)){
 			<div class="edit_this" data-id_test="'.$row['id'].'" style="display: inline-block; width: 10%;"><i class="write green icon"></i>Редагувати</div>
 			<div class="del" data-id_test="'.$row['id'].'" style="display: inline-block; width: 20%;"><i class="trash red icon"></i>Видалити запитання</div>
 			</div>
-		  </div>		
+		  </div>
 		';
-	}			
+	}
 		$html .='</div>';
 	echo json_encode(array("result"=>$html));
 }
@@ -149,7 +149,7 @@ if(isset($edit_this)){
 	  </div>
 	  <div class="field">
 		<label style="color: #fff;">Вірна відповідь</label>
-		<input type="text" name="vidpovid" value="'.$data['vidpovid'].'" autocomplete="off">		
+		<input type="text" name="vidpovid" value="'.$data['vidpovid'].'" autocomplete="off">
 	  </div>
 	</form>
 	';
@@ -157,28 +157,28 @@ if(isset($edit_this)){
 }
 if(isset($this_id)){
 	$update = $connection->query("UPDATE test_questions SET `pytannya` = '$pytannya', `variant_1` = '$variant_1', `variant_2` = '$variant_2', `variant_3` = '$variant_3', `variant_4` = '$variant_4', `vidpovid` = '$vidpovid' WHERE id = '$this_id'");
-	
+
 }
 if(isset($add_form)){
 	$data = mysqli_fetch_assoc($connection->query("INSERT INTO test_questions (category, pytannya, variant_1, variant_2, variant_3, variant_4, vidpovid) VALUES ('$form_tema', '$pytannya', '$variant_1', '$variant_2', '$variant_3', '$variant_4', '$vidpovid')"));
-}	
+}
 if(isset($del_this)){
 	$update = $connection->query("DELETE FROM test_questions WHERE id = '".$del_this."'");
-	
+
 }
 if(isset($get_gategory)){
 $query = $connection->query("select a.*, b.value from test_category a left join test_location b on a.id = b.catID and b.locID = '".$get_gategory."' order by a.id ASC");
 
 $content .= '<table class="ui celled table category">';
-$content .= '<thead><tr><th>Категорія</th><th style="width: 20%;">Запитань</th></tr></thead>';	
+$content .= '<thead><tr><th>Категорія</th><th style="width: 20%;">Запитань</th></tr></thead>';
 while ($row = mysqli_fetch_assoc($query)){
-$content .= '<tr><td>'.$row['name'].'</td><td class="edit" data-id="'.$row['id'].'" style="text-align: center;">'.$row['value'].'</td></tr>';	
+$content .= '<tr><td>'.$row['name'].'</td><td class="edit" data-id="'.$row['id'].'" style="text-align: center;">'.$row['value'].'</td></tr>';
 $sum += $row['value'];
 }
 $content .= '<tr><td></td><td class="q" style="text-align: center; color: #e2fa0f!important;">'.$sum.'</td></tr></table><br>
 ';
 
-echo json_encode(array("result"=>$content));	
+echo json_encode(array("result"=>$content));
 }
 if(isset($new_value) && isset($id_category) && isset($id_location)){
 	$a = mysqli_fetch_assoc($connection->query("SELECT * FROM test_location WHERE locID = '".$id_location."' AND catID = '".$id_category."'"));
@@ -187,15 +187,15 @@ if(isset($new_value) && isset($id_category) && isset($id_location)){
 	}else{
 		$data = mysqli_fetch_assoc($connection->query("UPDATE test_location SET `value` = '".$new_value."' WHERE locID = '".$id_location."' AND catID = '".$id_category."'"));
 	}
-	
+
 }
 if(isset($new_districts)){
 	$a = mysqli_fetch_assoc($connection->query("SELECT * FROM test_districts WHERE name = '".$new_districts."'"));
 	if(!isset($a['id'])){
 		$data = mysqli_fetch_assoc($connection->query("INSERT INTO test_districts (name) VALUES ('$new_districts')"));
-		echo json_encode(array("result"=>"Дільницю успішно додано!"));	
+		echo json_encode(array("result"=>"Дільницю успішно додано!"));
 	}else{
-		echo json_encode(array("result"=>"Така дільниця уже існує в базі!"));		
+		echo json_encode(array("result"=>"Така дільниця уже існує в базі!"));
 	}
 }
 if(isset($del_districts)){
@@ -211,7 +211,7 @@ if(isset($new_admin)){
     $a = mysqli_fetch_assoc($connection->query("SELECT * FROM users WHERE users_login = '".$new_admin."'"));
     if(!isset($a['users_id'])){
         $password = md5(md5(trim('test123')));
-        $data = mysqli_fetch_assoc($connection->query("INSERT INTO users (users_login, users_password, testuvannya) VALUES ('".$new_admin."', '".$password."', '1')"));
+        $data = mysqli_fetch_assoc($connection->query("INSERT INTO `users` (`users_login`, `users_password`, `testuvannya`) VALUES ('".$new_admin."', '".$password."', '1')"));
         echo json_encode(array("result"=>"Адміністратора успішно додано!"));
     }else{
         echo json_encode(array("result"=>"Такий адміністратор уже є!"));
@@ -221,9 +221,9 @@ if(isset($new_category)){
 	$a = mysqli_fetch_assoc($connection->query("SELECT * FROM test_category WHERE name = '".$new_category."'"));
 	if(!isset($a['id'])){
 		$data = mysqli_fetch_assoc($connection->query("INSERT INTO test_category (name) VALUES ('".$new_category."')"));
-		echo json_encode(array("result"=>"Категорію успішно додано!"));	
+		echo json_encode(array("result"=>"Категорію успішно додано!"));
 	}else{
-		echo json_encode(array("result"=>"Така категорія уже існує в базі!"));		
+		echo json_encode(array("result"=>"Така категорія уже існує в базі!"));
 	}
 }
 if(isset($del_category)){
@@ -233,9 +233,9 @@ if(isset($del_category)){
 }
 if(isset($get_history)){
 	$result_history = $connection->query("
-	select a.*, b.*, b.vidpovid as virna, a.vidpovid as my_vidpovid, b.id as img_id 
-	from test_results a 
-	left join test_questions b on a.pytannya = b.id 
+	select a.*, b.*, b.vidpovid as virna, a.vidpovid as my_vidpovid, b.id as img_id
+	from test_results a
+	left join test_questions b on a.pytannya = b.id
 	where a.test_id = '".$get_history."'");
 	$result_history_word = $connection->query("
 	SELECT a.*, b.`word`, b.`true` FROM `test_words_result` a LEFT JOIN `test_words` b ON a.word_id = b.id WHERE a.`test_id` = '".$get_history."'
@@ -253,7 +253,7 @@ if(isset($get_history)){
 		$data .= '<tr><td style="width: 15px;">'.$i++.'</td><td>'.$row_2['word'].'</td><td style="background: '.($row_2['true'] == $row_2['question'] && $row_2['question'] == '1' ? 'rgba(118, 161, 44, 0.5)' : 'rgba(215, 44, 44, 0.5)').';">'.($row_2['true'] == $row_2['question'] && $row_2['question'] == '1' ? 'Так' : 'Ні').'</td></tr>';
 	}
 	$data .= '</table>';
-	
+
 	echo json_encode(array("result"=>$data));
 }
 if(isset($word_id)){

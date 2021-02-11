@@ -20,11 +20,11 @@ final class CreateTableTestQuestions extends AbstractMigration
      {
        $table = $this->table('test_questions');
        $table->addColumn('category', 'integer', array('limit'=>11, 'null'=>TRUE, 'default'=>NULL))
-             ->addColumn('pytannya', 'text')
-             ->addColumn('variant_1', 'text')
-             ->addColumn('variant_2', 'text')
-             ->addColumn('variant_3', 'text')
-             ->addColumn('variant_4', 'text')
+             ->addColumn('pytannya', 'text', array('null'=>TRUE,'default'=>NULL))
+             ->addColumn('variant_1', 'text', array('null'=>TRUE,'default'=>NULL))
+             ->addColumn('variant_2', 'text', array('null'=>TRUE,'default'=>NULL))
+             ->addColumn('variant_3', 'text', array('null'=>TRUE,'default'=>NULL))
+             ->addColumn('variant_4', 'text', array('null'=>TRUE,'default'=>NULL))
              ->addColumn('vidpovid', 'integer', array('limit'=>11, 'null'=>TRUE,'default'=>NULL))
              ->addColumn('img', 'integer', array('limit'=>11, 'null'=>TRUE, 'default'=>NULL))
              ->create();
