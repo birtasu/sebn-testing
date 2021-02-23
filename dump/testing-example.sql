@@ -11,18 +11,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for Testing
-CREATE DATABASE IF NOT EXISTS `Testing` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `Testing`;
-
--- Dumping structure for таблиця Testing.test_category
-CREATE TABLE IF NOT EXISTS `test_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
-
 -- Dumping data for table Testing.test_category: ~15 rows (приблизно)
 /*!40000 ALTER TABLE `test_category` DISABLE KEYS */;
 INSERT INTO `test_category` (`id`, `name`) VALUES
@@ -43,13 +31,6 @@ INSERT INTO `test_category` (`id`, `name`) VALUES
 	(18, 'Комплектування РМ, укладальники-пакувальники');
 /*!40000 ALTER TABLE `test_category` ENABLE KEYS */;
 
--- Dumping structure for таблиця Testing.test_districts
-CREATE TABLE IF NOT EXISTS `test_districts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
-
 -- Dumping data for table Testing.test_districts: ~5 rows (приблизно)
 /*!40000 ALTER TABLE `test_districts` DISABLE KEYS */;
 INSERT INTO `test_districts` (`id`, `name`) VALUES
@@ -59,15 +40,6 @@ INSERT INTO `test_districts` (`id`, `name`) VALUES
 	(7, 'Напівфабрикати'),
 	(8, 'Формування Гольф');
 /*!40000 ALTER TABLE `test_districts` ENABLE KEYS */;
-
--- Dumping structure for таблиця Testing.test_location
-CREATE TABLE IF NOT EXISTS `test_location` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `locID` int(11) DEFAULT NULL,
-  `catID` int(11) DEFAULT NULL,
-  `value` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
 
 -- Dumping data for table Testing.test_location: ~62 rows (приблизно)
 /*!40000 ALTER TABLE `test_location` DISABLE KEYS */;
@@ -135,20 +107,6 @@ INSERT INTO `test_location` (`id`, `locID`, `catID`, `value`) VALUES
 	(76, 2, 14, 0),
 	(77, 5, 16, 0);
 /*!40000 ALTER TABLE `test_location` ENABLE KEYS */;
-
--- Dumping structure for таблиця Testing.test_questions
-CREATE TABLE IF NOT EXISTS `test_questions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category` int(11) DEFAULT NULL,
-  `pytannya` text,
-  `variant_1` text,
-  `variant_2` text,
-  `variant_3` text,
-  `variant_4` text,
-  `vidpovid` tinyint(4) DEFAULT NULL,
-  `img` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=405 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
 
 -- Dumping data for table Testing.test_questions: ~386 rows (приблизно)
 /*!40000 ALTER TABLE `test_questions` DISABLE KEYS */;
@@ -541,36 +499,6 @@ INSERT INTO `test_questions` (`id`, `category`, `pytannya`, `variant_1`, `varian
 	(404, 18, 'На що повинен звертати увагу укладальник-пакувальник перед тим, як брати матеріал зі складської позиції?', 'звірити Teilenummer частини з пдписом складської позиції ', 'звірити колір і довжину проводу', 'звірити позицію на канбані ', 'перевірити цілісність пакування', 1, NULL);
 /*!40000 ALTER TABLE `test_questions` ENABLE KEYS */;
 
--- Dumping structure for таблиця Testing.test_results
-CREATE TABLE IF NOT EXISTS `test_results` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `test_id` int(11) DEFAULT NULL,
-  `pytannya` int(11) DEFAULT NULL,
-  `vidpovid` int(11) DEFAULT NULL,
-  `check` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5556 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
-
--- Dumping structure for таблиця Testing.test_users
-CREATE TABLE IF NOT EXISTS `test_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date_created` datetime DEFAULT CURRENT_TIMESTAMP,
-  `employee_id` int(11) DEFAULT NULL,
-  `category` int(11) DEFAULT NULL,
-  `result` varchar(10) DEFAULT NULL,
-  `date_end` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
-
--- Dumping structure for таблиця Testing.test_words
-CREATE TABLE IF NOT EXISTS `test_words` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `word` varchar(50) DEFAULT NULL,
-  `true` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
-
 -- Dumping data for table Testing.test_words
 /*!40000 ALTER TABLE `test_words` DISABLE KEYS */;
 INSERT INTO `test_words` (`id`, `word`, `true`) VALUES
@@ -591,32 +519,10 @@ INSERT INTO `test_words` (`id`, `word`, `true`) VALUES
 	(15, 'Телескопізм', 0);
 /*!40000 ALTER TABLE `test_words` ENABLE KEYS */;
 
--- Dumping structure for таблиця Testing.test_words_result
-CREATE TABLE IF NOT EXISTS `test_words_result` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `test_id` int(11) DEFAULT NULL,
-  `word_id` varchar(50) DEFAULT NULL,
-  `question` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=406 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
-
--- Dumping structure for таблиця Testing.users
-CREATE TABLE IF NOT EXISTS `users` (
-  `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `users_id` int(11) NOT NULL AUTO_INCREMENT,
-  `users_login` varchar(30) NOT NULL DEFAULT '0',
-  `users_password` varchar(32) DEFAULT NULL,
-  `users_hash` varchar(32) DEFAULT NULL,
-  `testuvannya` int(11) DEFAULT NULL,
-  `report` int(11) DEFAULT NULL,
-  PRIMARY KEY (`users_id`),
-  KEY `data` (`data`)
-) ENGINE=InnoDB AUTO_INCREMENT=2866 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED;
-
 -- Dumping data for table Testing.users
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`data`, `users_id`, `users_login`, `users_password`, `users_hash`, `testuvannya`) VALUES
-	('2017-01-30 08:54:43', 1, '924', 'e75e877156be0c5772d670232a5f934c', '43570a555a8aadb7f1ddc132748dab13', 1);
+	('2017-01-30 08:54:43', 1, '21048', 'cc03e747a6afbbcbf8be7668acfebee5', '43570a555a8aadb7f1ddc132748dab13', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

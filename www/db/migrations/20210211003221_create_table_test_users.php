@@ -22,7 +22,7 @@ final class CreateTableTestUsers extends AbstractMigration
        $table->addColumn('date_created', 'datetime', array('null'=>TRUE, 'default'=>'CURRENT_TIMESTAMP'))
              ->addColumn('employee_id', 'integer', array('limit'=>11, 'null'=>TRUE,'default'=>NULL))
              ->addColumn('category', 'integer', array('limit'=>11, 'null'=>TRUE,'default'=>NULL))
-             ->addColumn('result', 'string')
+             ->addColumn('result', 'string', array('null'=>TRUE,'default'=>NULL))
              ->addColumn('date_end', 'datetime', array('null'=>TRUE, 'update'=>'CURRENT_TIMESTAMP'))
              ->create();
      }
